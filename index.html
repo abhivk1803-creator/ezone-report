@@ -601,28 +601,30 @@ async function submitRecord() {
     const btn = document.getElementById('submit-btn');
     
     btn.disabled = true;
-    btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD...';
-    
-    try {
-        if (window.fbReady) {
-            await window._fbAdd(record);
-            resetForm();
-            showSuccess(`${totalHoursLabel} logged at ${site} - Synced to manager dashboard`, true);
-            toast('Report submitted & synced to manager!', 'ok');
-        } else {
-            // Offline Fallback Fix: Re-enable the button if firebase isn't ready
-            resetForm();
-            showSuccess('⚠️ No cloud connection. Report could not be sent. Check internet and try again.', false);
-            toast('Cloud unavailable. Report not saved.', 'err');
-            
-            btn.disabled = false;
-            btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
-        }
-    } catch(e) {
-        toast('❌ Error: ' + e.message, 'err');
-        console.error(e);
+btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD...';
+
+try {
+    if (window.fbReady || window.fbReady) {
+        await window._fbAdd(record);
+        resetForm();
+        showSuccess(`${totalHoursLabel} logged at ${site} - Synced to manager dashboard`, true);
+        toast('Report submitted & synced to manager!', 'ok');
+    } else {
+        resetForm();
+        showSuccess('⚠️ No cloud connection. Report could not be sent. Check internet and try again.', false);
+        toast('Cloud unavailable. Report not saved.', 'err');
         
         btn.disabled = false;
+        btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
+    }
+} catch(e) {
+    toast('❌ Error: ' + e.message, 'err');
+    console.error(e);
+    
+    btn.disabled = false;
+    btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
+}
+
         btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
     }
 }
