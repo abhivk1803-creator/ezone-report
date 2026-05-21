@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EZone Daily Work Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080c14;--surf:#0f1522;--card:#141c2e;--card2:#1a2338;
+  --border:#1f2d45;--border2:#263552;
+  --accent:#f97316;--accent2:#fb923c;--accent-glow:#f9731640;
+  --green:#22c55e;--green-bg:#0d2118;
+  --red:#ef4444;--red-bg:#220d0d;--blue:#3b82f6;
+  --text:#e2e8f2;--text2:#9aaabf;--text3:#5a6e8a;
+  --font-head:'Rajdhani',sans-serif;--font-body:'DM Sans',sans-serif;
+  --radius:12px;--radius-sm:8px;
+  --shadow:0 4px 24px #00000060;--shadow-lg:0 16px 60px #00000080;
+  --max-w:960px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+.bg-grid{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:60px 60px;opacity:.12}
+.bg-orb{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(120px);opacity:.18}
+.orb1{width:600px;height:600px;top:-200px;right:-150px;background:radial-gradient(#f9731630,transparent)}
+.orb2{width:500px;height:500px;bottom:-150px;left:-150px;background:radial-gradient(#3b82f618,transparent)}
+
+/* HOME */
+#home{align-items:center;justify-content:center;position:relative;padding:2rem}
+.home-inner{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
+.brand-wrap{margin-bottom:3rem}
+.brand-logo{width:80px;height:80px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 0 60px var(--accent-glow)}
+.brand-logo i{font-size:42px;color:#fff}
+.brand-name{font-family:var(--font-head);font-size:3.6rem;font-weight:700;letter-spacing:8px;color:var(--accent);line-height:1;text-shadow:0 0 60px var(--accent-glow)}
+.brand-sub{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--text3);margin-top:8px}
+.brand-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:1rem auto 0}
+.home-btns{display:flex;flex-direction:column;gap:1rem}
+.hbtn{width:100%;padding:1.2rem 1.5rem;border-radius:var(--radius);border:none;font-family:var(--font-head);font-size:1.15rem;font-weight:600;letter-spacing:2.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.7rem;transition:transform .15s,box-shadow .2s}
+.hbtn:active{transform:scale(.97)}
+.hbtn-eng{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 8px 40px var(--accent-glow)}
+.hbtn-eng:hover{box-shadow:0 14px 56px var(--accent-glow);transform:translateY(-2px)}
+.hbtn-mgr{background:var(--card);color:var(--text);border:1px solid var(--border2)}
+.hbtn-mgr:hover{border-color:var(--accent);color:var(--accent)}
+.home-note{margin-top:1.8rem;font-size:.72rem;color:var(--text3);letter-spacing:.5px;line-height:1.8}
+
+/* TOPBAR */
+.topbar{background:var(--surf);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:50}
+.back-btn{background:none;border:1px solid var(--border2);color:var(--text2);width:38px;height:38px;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;transition:border-color .2s,color .2s}
+.back-btn:hover{border-color:var(--accent);color:var(--accent)}
+.topbar-title{font-family:var(--font-head);font-size:1.25rem;font-weight:600;letter-spacing:2.5px}
+.topbar-badge{margin-left:auto;font-size:.65rem;letter-spacing:2px;padding:4px 12px;border-radius:20px;background:var(--accent-glow);color:var(--accent);border:1px solid #f9731430;font-family:var(--font-head)}
+
+/* ENGINEER FORM */
+#engineer{background:var(--bg)}
+.eng-scroll{flex:1;overflow-y:auto;position:relative;z-index:1}
+.eng-body{padding:1.6rem;max-width:720px;width:100%;margin:0 auto}
+.section-label{font-size:.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.fgroup{margin-bottom:1.1rem}
+.fgroup label{display:block;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);margin-bottom:6px;font-weight:500}
+.fgroup input,.fgroup textarea,.fgroup select{width:100%;padding:.88rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:.92rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.fgroup input:focus,.fgroup textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.fgroup input::placeholder,.fgroup textarea::placeholder{color:var(--text3)}
+.fgroup textarea{min-height:90px;resize:vertical}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.tcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;transition:border-color .3s}
+.tcard.active-in{border-color:var(--green);box-shadow:0 0 20px #22c55e15}
+.tcard.active-out{border-color:var(--red);box-shadow:0 0 20px #ef444415}
+.tcard-head{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:.8rem;display:flex;align-items:center;gap:5px}
+.tcard-dot{width:7px;height:7px;border-radius:50%}
+.dot-in{background:var(--green)}.dot-out{background:var(--red)}
+.tcard-selects{display:flex;gap:5px}
+.tcard-selects select{flex:1;min-width:0;padding:.55rem .3rem;background:var(--card2);border:1px solid var(--border2);border-radius:7px;color:var(--text);font-size:.82rem;font-family:var(--font-body);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;text-align:center}
+.tcard-selects select:focus{border-color:var(--accent)}
+.hours-strip{background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);padding:.9rem 1.2rem;margin-bottom:1.3rem;display:flex;align-items:center;justify-content:space-between}
+.hs-label{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:6px}
+.hs-val{font-family:var(--font-head);font-size:1.6rem;color:var(--accent);letter-spacing:1px}
+.submit-btn{width:100%;padding:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:var(--radius);color:#fff;font-family:var(--font-head);font-size:1.15rem;font-weight:700;letter-spacing:3px;cursor:pointer;transition:opacity .2s,transform .15s,box-shadow .2s;box-shadow:0 8px 36px var(--accent-glow)}
+.submit-btn:hover{box-shadow:0 14px 56px var(--accent-glow);transform:translateY(-1px)}
+.submit-btn:active{transform:scale(.98)}
+.submit-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.success-bar{background:var(--green-bg);border:1px solid var(--green);border-radius:var(--radius);padding:.9rem 1.2rem;margin-top:1rem;display:none;align-items:center;gap:.8rem}
+.success-bar.show{display:flex;animation:slideUp .4s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.success-bar i{font-size:24px;color:var(--green)}
+.success-bar p{font-size:.9rem;color:var(--green);font-weight:500}
+.success-bar span{font-size:.75rem;color:#4ade8080;display:block;margin-top:2px}
+
+/* CLOUD CHIP */
+.cloud-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:20px;font-size:.72rem;letter-spacing:1.5px;font-family:var(--font-head);margin-bottom:1.4rem;cursor:default;pointer-events:none}
+.cloud-live{background:var(--green-bg);border:1px solid #22c55e40;color:var(--green)}
+.cloud-warn{background:#1a1500;border:1px solid #f59e0b50;color:#f59e0b}
+.cloud-conn{background:#0d1a30;border:1px solid #3b82f650;color:#60a5fa}
+.chip-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+
+/* CONFIRM DELETE MODAL */
+.del-overlay{position:fixed;inset:0;background:#000000b0;z-index:300;display:none;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(8px)}
+.del-overlay.open{display:flex}
+.del-box{background:var(--surf);border:1px solid var(--red);border-radius:16px;width:100%;max-width:420px;box-shadow:var(--shadow-lg);animation:slideUp .25s ease}
+.del-head{padding:1.3rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.5rem}
+.del-head h3{font-family:var(--font-head);font-size:1.15rem;letter-spacing:2px;color:var(--red)}
+.del-body{padding:1.3rem 1.5rem}
+.del-info{font-size:.85rem;color:var(--text2);line-height:1.7;margin-bottom:1rem}
+.del-meta{background:var(--red-bg);border:1px solid #ef444430;border-radius:var(--radius-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--text);margin-bottom:1.3rem;line-height:1.8}
+.del-meta b{color:var(--red);font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;display:block}
+.del-btns{display:flex;gap:.8rem}
+.btn-del-ok{flex:1;padding:.88rem;background:linear-gradient(135deg,var(--red),#dc2626);border:none;border-radius:var(--radius);color:#fff;font-family:var(--font-head);font-size:1rem;letter-spacing:2px;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .2s}
+.btn-del-ok:hover{opacity:.9}
+.btn-del-ok:disabled{opacity:.45;cursor:not-allowed}
+.btn-del-cancel{padding:.88rem 1.2rem;background:var(--card);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text2);font-family:var(--font-head);font-size:.9rem;letter-spacing:1px;cursor:pointer}
+.btn-del-cancel:hover{border-color:var(--text2)}
+
+/* MANAGER LOGIN */
+#manager-login{align-items:center;justify-content:center;padding:2rem;position:relative}
+.login-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:2.6rem 2.2rem;box-shadow:var(--shadow-lg);width:100%;max-width:400px}
+.login-title{font-family:var(--font-head);font-size:2.2rem;font-weight:700;letter-spacing:5px;color:var(--accent);margin-bottom:4px}
+.login-sub{font-size:.7rem;letter-spacing:2px;color:var(--text3);margin-bottom:2rem;text-transform:uppercase}
+.pass-wrap{position:relative;margin-bottom:1rem}
+.pass-wrap input{width:100%;padding:.9rem 3rem .9rem 1.1rem;background:var(--card2);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:var(--font-body);font-size:.95rem;outline:none;transition:border-color .2s,box-shadow .2s;letter-spacing:3px}
+.pass-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.pass-wrap input::placeholder{letter-spacing:0;color:var(--text3)}
+.pass-toggle{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:19px;padding:4px}
+.pass-toggle:hover{color:var(--text2)}
+.login-err{color:var(--red);font-size:.78rem;margin-bottom:.9rem;min-height:20px;display:none;align-items:center;gap:5px}
+.login-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#3b82f6,#6366f1);border:none;border-radius:var(--radius);color:#fff;font-family:var(--font-head);font-size:1.1rem;font-weight:700;letter-spacing:3px;cursor:pointer;box-shadow:0 8px 36px #3b82f640;transition:opacity .2s,transform .15s}
+.login-btn:hover{opacity:.9;transform:translateY(-1px)}
+
+/* DASHBOARD */
+#dashboard{background:var(--bg)}
+.dash-top{background:var(--surf);border-bottom:1px solid var(--border);padding:1rem 1.6rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.dash-brand{display:flex;align-items:center;gap:.7rem}
+.dash-brand-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center}
+.dash-brand-icon i{font-size:19px;color:#fff}
+.dash-brand-name{font-family:var(--font-head);font-size:1.25rem;font-weight:700;letter-spacing:3px;color:var(--accent)}
+.dash-actions{display:flex;gap:.5rem;align-items:center}
+.icon-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:6px 11px;border-radius:var(--radius-sm);font-size:.72rem;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:4px;transition:border-color .2s,color .2s;font-family:var(--font-body);white-space:nowrap}
+.icon-btn.green:hover{border-color:var(--green);color:var(--green)}
+.icon-btn.red:hover{border-color:var(--red);color:var(--red)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block;animation:blink 2s infinite}
+.dash-tabs{display:flex;background:var(--surf);border-bottom:1px solid var(--border);padding:0 1.4rem;overflow-x:auto;scrollbar-width:none}
+.dash-tabs::-webkit-scrollbar{display:none}
+.dtab{padding:.9rem 1.1rem;background:none;border:none;color:var(--text3);font-family:var(--font-head);font-size:.85rem;letter-spacing:2px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;display:flex;align-items:center;gap:5px}
+.dtab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.dtab i{font-size:15px}
+.dash-body{padding:1.6rem;flex:1;overflow-y:auto;max-width:var(--max-w);width:100%;margin:0 auto}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem}
+.scard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;text-align:center;transition:border-color .2s,transform .2s}
+.scard:hover{border-color:var(--border2);transform:translateY(-1px)}
+.scard .snum{font-family:var(--font-head);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1}
+.scard .slbl{font-size:.6rem;letter-spacing:2px;color:var(--text3);margin-top:5px;text-transform:uppercase}
+.filter-bar{display:flex;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap}
+.filter-bar input,.filter-bar select{flex:1;min-width:140px;padding:.65rem .95rem;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:.85rem;outline:none;-webkit-appearance:none}
+.filter-bar input:focus{border-color:var(--accent)}
+.filter-bar input::placeholder{color:var(--text3)}
+.export-bar{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.exp-btn{padding:.55rem 1rem;border:1px solid var(--border);background:var(--card);color:var(--text2);border-radius:var(--radius-sm);font-size:.75rem;letter-spacing:1px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .2s;font-family:var(--font-body);white-space:nowrap}
+.exp-btn:hover{transform:translateY(-1px)}
+.exp-excel:hover{border-color:var(--green);color:var(--green);background:var(--green-bg)}
+.exp-pdf:hover{border-color:var(--red);color:var(--red);background:var(--red-bg)}
+.exp-csv:hover{border-color:var(--blue);color:var(--blue);background:#0d1a2d}
+.exp-onedrive:hover{border-color:#0078d4;color:#0078d4;background:#091525}
+.records{display:grid;grid-template-columns:1fr;gap:.85rem}
+
+/* RECORD CARD */
+.rcard{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.3rem;transition:border-color .2s,transform .2s}
+.rcard:hover{border-color:var(--border2);transform:translateY(-1px)}
+.rcard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.5rem;gap:.5rem}
+.rcard-name{font-family:var(--font-head);font-size:1.1rem;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:.4rem}
+.rcard-name i{font-size:15px;color:var(--accent)}
+.rcard-topright{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+.rcard-date{font-size:.7rem;color:var(--text3);text-align:right;line-height:1.5}
+.rcard-site{font-size:.82rem;color:var(--accent2);margin-bottom:.5rem;display:flex;align-items:center;gap:.3rem}
+.rcard-times{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:.55rem}
+.rtime{font-size:.72rem;color:var(--text3)}
+.rtime span{display:block;font-size:.87rem;color:var(--text);font-weight:500;margin-top:1px}
+.rcard-hrs{display:inline-flex;align-items:center;gap:4px;background:var(--green-bg);border:1px solid #22c55e30;color:var(--green);font-family:var(--font-head);font-size:.78rem;padding:3px 11px;border-radius:20px;letter-spacing:1px;margin-bottom:.55rem}
+.rcard-work{font-size:.8rem;color:var(--text2);border-top:1px solid var(--border);padding-top:.55rem;margin-top:.3rem;line-height:1.6}
+.rcard-work b{color:var(--text3);font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+/* DELETE BTN — hidden by default, shown only in .manager-mode */
+.rcard-del{background:var(--red-bg);border:1px solid #ef444440;color:var(--red);width:30px;height:30px;border-radius:7px;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:border-color .2s,background .2s}
+.rcard-del:hover{border-color:var(--red);background:#3a0e0e}
+.manager-mode .rcard-del{display:flex}
+.no-data{text-align:center;padding:3rem 1rem;color:var(--text3)}
+.no-data i{font-size:44px;display:block;margin-bottom:.9rem;opacity:.35}
+.no-data p{font-size:.9rem;letter-spacing:1px}
+.spinner{display:flex;justify-content:center;padding:2.5rem}
+.spinner::after{content:'';width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ONEDRIVE */
+.od-card{background:var(--card);border:1px solid #0078d430;border-radius:var(--radius);padding:1.3rem;margin-bottom:1rem}
+.od-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem}
+.od-head i{font-size:26px;color:#0078d4}
+.od-head strong{font-family:var(--font-head);font-size:1.05rem;letter-spacing:1.5px;color:#0078d4}
+.od-steps{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.od-steps li{font-size:.82rem;color:var(--text2);padding:.55rem .8rem;background:var(--card2);border-radius:7px;display:flex;align-items:flex-start;gap:.6rem;line-height:1.6}
+.od-steps li .num{font-family:var(--font-head);font-size:.9rem;color:var(--accent);min-width:18px}
+.od-path{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.5rem .9rem;font-size:.75rem;color:#0078d4;margin-top:.5rem;letter-spacing:.5px;word-break:break-all}
+.od-note{font-size:.72rem;color:var(--text3);margin-top:.8rem;line-height:1.7;padding:.65rem .9rem;background:var(--card2);border-radius:7px;border-left:2px solid #f59e0b}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--card2);color:var(--text);padding:.75rem 1.5rem;border-radius:50px;font-size:.83rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:9999;white-space:nowrap;border:1px solid var(--border2);box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--red);color:var(--red)}
+.toast.info{border-color:#0078d4;color:#0078d4}
+
+@media(min-width:768px){
+  .eng-body{padding:2rem 2.4rem}
+  .records{grid-template-columns:1fr 1fr}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .dash-body{padding:2rem 2.4rem}
+  .filter-bar{flex-wrap:nowrap}
+}
+@media(min-width:1100px){
+  .records{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:480px){
+  .frow{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .scard:last-child{grid-column:span 2}
+  .brand-name{font-size:3rem;letter-spacing:5px}
+  .del-btns{flex-direction:column}
+  .dash-brand-name{display:none}
+  .icon-btn span{display:none}
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="home-inner">
+    <div class="brand-wrap">
+      <div class="brand-logo"><i class="ti ti-bolt"></i></div>
+      <div class="brand-name">EZONE</div>
+      <div class="brand-sub">Daily Work Report System</div>
+      <div class="brand-line"></div>
+    </div>
+    <div class="home-btns">
+      <button class="hbtn hbtn-eng" onclick="show('engineer')"><i class="ti ti-clipboard-list"></i> SUBMIT DAILY REPORT</button>
+      <button class="hbtn hbtn-mgr" onclick="show('manager-login')"><i class="ti ti-shield-lock"></i> MANAGER PORTAL</button>
+    </div>
+    <p class="home-note">Engineers: submit your daily report — it syncs to the manager's cloud dashboard instantly from any device.<br/>Manager: login to view, filter &amp; delete all reports.</p>
+  </div>
+</div>
+
+<!-- ENGINEER FORM -->
+<div id="engineer" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="show('home')"><i class="ti ti-arrow-left"></i></button>
+    <span class="topbar-title">DAILY WORK REPORT</span>
+    <span class="topbar-badge">ENGINEER</span>
+  </div>
+  <div class="eng-scroll"><div class="eng-body">
+    <div class="cloud-chip cloud-conn" id="cloud-chip">
+      <span class="chip-dot"></span>
+      <span id="cloud-text">Connecting to cloud…</span>
+    </div>
+    <div class="section-label">Personal Info</div>
+    <div class="frow">
+      <div class="fgroup"><label>Engineer Name</label><input type="text" id="eng-name" placeholder="Your full name" autocomplete="name"/></div>
+      <div class="fgroup"><label>Site Name / Location</label><input type="text" id="eng-site" placeholder="e.g. Site A – Hyderabad"/></div>
+    </div>
+    <div class="section-label" style="margin-top:1.4rem">Work Details</div>
+    <div class="fgroup"><label>Tasks Completed Today</label><textarea id="eng-work" placeholder="Describe all tasks completed at this site today…"></textarea></div>
+    <div class="fgroup"><label>Issues / Observations <span style="color:var(--text3);text-transform:none;letter-spacing:0;font-size:.75rem">(optional)</span></label><textarea id="eng-issues" placeholder="Any problems faced, pending work or observations…" style="min-height:70px"></textarea></div>
+    <div class="section-label" style="margin-top:1.4rem">Work Hours</div>
+    <div class="time-grid">
+      <div class="tcard active-in" id="tcard-in">
+        <div class="tcard-head"><span class="tcard-dot dot-in"></span>START TIME</div>
+        <div class="tcard-selects">
+          <select id="in-hour" onchange="calcHours()"></select>
+          <select id="in-min" onchange="calcHours()"></select>
+          <select id="in-ampm" onchange="calcHours()"><option>AM</option><option>PM</option></select>
+        </div>
+      </div>
+      <div class="tcard active-out" id="tcard-out">
+        <div class="tcard-head"><span class="tcard-dot dot-out"></span>END TIME</div>
+        <div class="tcard-selects">
+          <select id="out-hour" onchange="calcHours()"></select>
+          <select id="out-min" onchange="calcHours()"></select>
+          <select id="out-ampm" onchange="calcHours()"><option>AM</option><option selected>PM</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="hours-strip">
+      <div class="hs-label"><i class="ti ti-clock"></i>TOTAL HOURS WORKED</div>
+      <div class="hs-val" id="total-hours">– hrs</div>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="submitRecord()"><i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT</button>
+    <div class="success-bar" id="success-bar">
+      <i class="ti ti-circle-check"></i>
+      <div><p>Daily Report Submitted!</p><span id="success-detail"></span></div>
+    </div>
+    <div style="height:2rem"></div>
+  </div></div>
+</div>
+
+<!-- MANAGER LOGIN -->
+<div id="manager-login" class="screen" style="align-items:center;justify-content:center;padding:2rem">
+  <div class="login-card">
+    <div class="login-title">MANAGER</div>
+    <div class="login-sub">Restricted Access · EZone HQ</div>
+    <div class="fgroup" style="margin-bottom:.8rem">
+      <label>Password</label>
+      <div class="pass-wrap">
+        <input type="password" id="mgr-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')managerLogin()" autocomplete="current-password"/>
+        <button class="pass-toggle" onclick="togglePass()" type="button"><i class="ti ti-eye" id="eye-icon"></i></button>
+      </div>
+    </div>
+    <div class="login-err" id="login-err"><i class="ti ti-alert-circle"></i> Incorrect password. Try again.</div>
+    <button class="login-btn" onclick="managerLogin()"><i class="ti ti-lock-open"></i>&nbsp; ENTER DASHBOARD</button>
+    <div style="margin-top:1rem;text-align:center">
+      <button class="hbtn hbtn-mgr" style="display:inline-flex;padding:.75rem 1.5rem;font-size:.85rem;width:auto" onclick="show('home')"><i class="ti ti-arrow-left"></i> BACK</button>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="screen">
+  <div class="dash-top">
+    <div class="dash-brand">
+      <div class="dash-brand-icon"><i class="ti ti-bolt"></i></div>
+      <div class="dash-brand-name">EZONE HQ</div>
+    </div>
+    <div class="dash-actions">
+      <span id="sync-badge" style="font-size:.65rem;color:var(--text3);letter-spacing:1px;display:flex;align-items:center;gap:5px"><span class="live-dot"></span> LIVE</span>
+      <button class="icon-btn green" onclick="loadRecords()"><i class="ti ti-refresh"></i><span> REFRESH</span></button>
+      <button class="icon-btn red" onclick="logout()"><i class="ti ti-logout"></i><span> LOG OUT</span></button>
+    </div>
+  </div>
+  <div class="dash-tabs">
+    <button class="dtab active" onclick="switchTab('daily',this)"><i class="ti ti-calendar-day"></i> DAILY</button>
+    <button class="dtab" onclick="switchTab('monthly',this)"><i class="ti ti-calendar-month"></i> MONTHLY</button>
+    <button class="dtab" onclick="switchTab('all',this)"><i class="ti ti-database"></i> ALL RECORDS</button>
+    <button class="dtab" onclick="switchTab('onedrive',this)"><i class="ti ti-cloud-upload"></i> ONEDRIVE</button>
+  </div>
+  <div class="dash-body manager-mode" id="dash-body">
+
+    <!-- DAILY -->
+    <div class="tab-panel active" id="panel-daily">
+      <div class="stats-row">
+        <div class="scard"><div class="snum" id="d-count">0</div><div class="slbl">Reports Today</div></div>
+        <div class="scard"><div class="snum" id="d-sites">0</div><div class="slbl">Sites Active</div></div>
+        <div class="scard"><div class="snum" id="d-hrs">0</div><div class="slbl">Total Hrs</div></div>
+      </div>
+      <div class="filter-bar"><input type="date" id="daily-date" onchange="renderDaily()"/></div>
+      <div class="export-bar">
+        <button class="exp-btn exp-excel" onclick="exportExcel('daily')"><i class="ti ti-file-spreadsheet"></i>Excel</button>
+        <button class="exp-btn exp-pdf" onclick="exportPDF('daily')"><i class="ti ti-file-type-pdf"></i>PDF</button>
+        <button class="exp-btn exp-csv" onclick="exportCSV('daily')"><i class="ti ti-file-text"></i>CSV</button>
+        <button class="exp-btn exp-onedrive" onclick="saveToOneDrive('daily')"><i class="ti ti-cloud-upload"></i>OneDrive</button>
+      </div>
+      <div class="records" id="daily-records"><div class="spinner"></div></div>
+    </div>
+
+    <!-- MONTHLY -->
+    <div class="tab-panel" id="panel-monthly">
+      <div class="stats-row">
+        <div class="scard"><div class="snum" id="m-count">0</div><div class="slbl">Records</div></div>
+        <div class="scard"><div class="snum" id="m-engs">0</div><div class="slbl">Engineers</div></div>
+        <div class="scard"><div class="snum" id="m-hrs">0</div><div class="slbl">Total Hrs</div></div>
+      </div>
+      <div class="filter-bar">
+        <input type="month" id="monthly-month" onchange="renderMonthly()"/>
+        <input type="text" id="monthly-eng" placeholder="Filter by engineer…" oninput="renderMonthly()"/>
+        <input type="text" id="monthly-site" placeholder="Filter by site…" oninput="renderMonthly()"/>
+      </div>
+      <div class="export-bar">
+        <button class="exp-btn exp-excel" onclick="exportExcel('monthly')"><i class="ti ti-file-spreadsheet"></i>Excel</button>
+        <button class="exp-btn exp-pdf" onclick="exportPDF('monthly')"><i class="ti ti-file-type-pdf"></i>PDF</button>
+        <button class="exp-btn exp-csv" onclick="exportCSV('monthly')"><i class="ti ti-file-text"></i>CSV</button>
+        <button class="exp-btn exp-onedrive" onclick="saveToOneDrive('monthly')"><i class="ti ti-cloud-upload"></i>OneDrive</button>
+      </div>
+      <div class="records" id="monthly-records"><div class="spinner"></div></div>
+    </div>
+
+    <!-- ALL -->
+    <div class="tab-panel" id="panel-all">
+      <div class="filter-bar"><input type="text" id="all-search" placeholder="Search name or site…" oninput="renderAll()"/></div>
+      <div class="export-bar">
+        <button class="exp-btn exp-excel" onclick="exportExcel('all')"><i class="ti ti-file-spreadsheet"></i>Excel</button>
+        <button class="exp-btn exp-pdf" onclick="exportPDF('all')"><i class="ti ti-file-type-pdf"></i>PDF</button>
+        <button class="exp-btn exp-csv" onclick="exportCSV('all')"><i class="ti ti-file-text"></i>CSV</button>
+        <button class="exp-btn exp-onedrive" onclick="saveToOneDrive('all')"><i class="ti ti-cloud-upload"></i>OneDrive</button>
+      </div>
+      <div class="records" id="all-records"><div class="spinner"></div></div>
+    </div>
+
+    <!-- ONEDRIVE -->
+    <div class="tab-panel" id="panel-onedrive">
+      <div class="od-card">
+        <div class="od-head"><i class="ti ti-brand-onedrive"></i><strong>HOW TO SYNC TO ONEDRIVE</strong></div>
+        <ol class="od-steps">
+          <li><span class="num">1</span>Click any <b>Excel</b> or <b>OneDrive</b> button — a .xlsx file will download.</li>
+          <li><span class="num">2</span>Copy it to your OneDrive folder on your PC:<div class="od-path">📂 C:\Users\YourName\OneDrive\EZone Reports\</div></li>
+          <li><span class="num">3</span>OneDrive auto-syncs within seconds. Access from anywhere at <b>onedrive.live.com</b></li>
+          <li><span class="num">4</span><b>Tip:</b> Set your browser download folder to your OneDrive folder for instant sync on every export.</li>
+        </ol>
+        <p class="od-note">⚡ Your Firebase cloud is already connected — all employee reports sync live to this dashboard automatically from any device.</p>
+      </div>
+      <div class="export-bar" style="margin-top:.5rem">
+        <button class="exp-btn exp-onedrive" onclick="saveToOneDrive('daily')" style="flex:1;justify-content:center"><i class="ti ti-calendar-day"></i>Today's Report</button>
+        <button class="exp-btn exp-onedrive" onclick="saveToOneDrive('monthly')" style="flex:1;justify-content:center"><i class="ti ti-calendar-month"></i>This Month</button>
+        <button class="exp-btn exp-onedrive" onclick="saveToOneDrive('all')" style="flex:1;justify-content:center"><i class="ti ti-database"></i>All Records</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE MODAL -->
+<div class="del-overlay" id="del-overlay">
+  <div class="del-box">
+    <div class="del-head"><i class="ti ti-alert-triangle" style="color:var(--red);font-size:22px"></i><h3>CONFIRM DELETE</h3></div>
+    <div class="del-body">
+      <div class="del-info">This will permanently delete this report from the cloud. This action <b>cannot be undone</b>.</div>
+      <div class="del-meta" id="del-meta"></div>
+      <div class="del-btns">
+        <button class="btn-del-ok" id="del-ok" onclick="confirmDelete()"><i class="ti ti-trash"></i>&nbsp; DELETE PERMANENTLY</button>
+        <button class="btn-del-cancel" onclick="closeDelModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+<!-- ═══ FIREBASE COMPAT SDK — works in ALL browsers, WhatsApp, WeChat, etc. ═══ -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script>
+(function initFB() {
+  var cfg = {
+    apiKey:            "AIzaSyCJPAFcJfjkJMPH4TauSnW7tIEp8UIz8Ps",
+    authDomain:        "daily-work-report-60de9.firebaseapp.com",
+    projectId:         "daily-work-report-60de9",
+    storageBucket:     "daily-work-report-60de9.firebasestorage.app",
+    messagingSenderId: "648148102614",
+    appId:             "1:648148102614:web:0ebef0e1d3c452c127c877"
+  };
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+    var db = firebase.firestore();
+    window._db         = db;
+    window._fbReady    = true;
+    window._fbAdd      = function(data){ return db.collection('dailyReports').add(data); };
+    window._fbDelete   = function(id){ return db.collection('dailyReports').doc(id).delete(); };
+    window._fbListen   = function(cb, errCb){
+      return db.collection('dailyReports').orderBy('submittedAt','desc').onSnapshot(function(snap){
+        var docs = [];
+        snap.forEach(function(d){ docs.push(Object.assign({},d.data(),{_id:d.id})); });
+        cb(docs);
+      }, errCb);
+    };
+    setChip('live');
+    console.log('✅ Firebase compat connected');
+  } catch(e) {
+    window._fbReady = false;
+    setChip('warn');
+    console.error('Firebase error:', e);
+  }
+})();
+
+function setChip(state) {
+  var chip = document.getElementById('cloud-chip');
+  var txt  = document.getElementById('cloud-text');
+  if (!chip) return;
+  chip.className = 'cloud-chip ' + (state==='live' ? 'cloud-live' : state==='conn' ? 'cloud-conn' : 'cloud-warn');
+  txt.textContent = state==='live'
+    ? '🔥 Cloud Connected — Reports sync live to manager'
+    : state==='conn' ? 'Connecting to cloud…'
+    : '⚠️ Cloud unavailable — check internet';
+  var badge = document.getElementById('sync-badge');
+  if (badge) badge.innerHTML = state==='live'
+    ? '<span class="live-dot"></span> LIVE'
+    : '<span style="color:var(--text3);font-size:.65rem;letter-spacing:1px">OFFLINE</span>';
+}
+window._setChip = setChip;
+</script>
+
+<script>
+/* ═══════════════════════════════
+   GLOBALS
+═══════════════════════════════ */
+const MANAGER_PASS = "Ezone$123";
+let allRecords  = [];
+let filtered    = { daily:[], monthly:[], all:[] };
+let unsubscribe = null;
+// Delete state — we track the Firestore doc ID to delete
+let pendingDelId   = null;
+let pendingDelData = null;
+// Track doc IDs that were locally deleted so onSnapshot doesn't re-add them
+const locallyDeleted = new Set();
+
+/* ═══════════════════════════════
+   NAVIGATION
+═══════════════════════════════ */
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'dashboard') loadRecords();
+}
+window.show = show;
+
+/* ═══════════════════════════════
+   PASSWORD TOGGLE
+═══════════════════════════════ */
+function togglePass() {
+  const inp = document.getElementById('mgr-pass');
+  const ico = document.getElementById('eye-icon');
+  const h = inp.type === 'password';
+  inp.type = h ? 'text' : 'password';
+  ico.className = h ? 'ti ti-eye-off' : 'ti ti-eye';
+}
+window.togglePass = togglePass;
+
+/* ═══════════════════════════════
+   TIME SELECTORS
+═══════════════════════════════ */
+function buildTimeSelectors() {
+  ['in-hour','out-hour'].forEach(id => {
+    const s = document.getElementById(id);
+    for (let h=1; h<=12; h++) {
+      const o = document.createElement('option');
+      o.value = h; o.textContent = String(h).padStart(2,'0');
+      s.appendChild(o);
+    }
+  });
+  ['in-min','out-min'].forEach(id => {
+    const s = document.getElementById(id);
+    for (let m=0; m<60; m+=5) {
+      const o = document.createElement('option');
+      o.value = m; o.textContent = String(m).padStart(2,'0');
+      s.appendChild(o);
+    }
+  });
+  document.getElementById('in-hour').value  = 8;
+  document.getElementById('in-min').value   = 0;
+  document.getElementById('in-ampm').value  = 'AM';
+  document.getElementById('out-hour').value = 5;
+  document.getElementById('out-min').value  = 0;
+  document.getElementById('out-ampm').value = 'PM';
+  calcHours();
+}
+function to24(h, m, ap) {
+  let hh = +h;
+  if (ap==='AM' && hh===12) hh = 0;
+  if (ap==='PM' && hh!==12) hh += 12;
+  return hh * 60 + +m;
+}
+function calcHours() {
+  const inM  = to24(document.getElementById('in-hour').value,  document.getElementById('in-min').value,  document.getElementById('in-ampm').value);
+  const outM = to24(document.getElementById('out-hour').value, document.getElementById('out-min').value, document.getElementById('out-ampm').value);
+  let diff = outM - inM; if (diff < 0) diff += 1440;
+  const h = Math.floor(diff/60), m = diff % 60;
+  document.getElementById('total-hours').textContent = diff <= 0 ? '– hrs' : `${h}h ${m}m`;
+  return diff;
+}
+function timeStr(h, m, ap) { return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')} ${ap}`; }
+window.calcHours = calcHours;
+
+/* ═══════════════════════════════
+   SUBMIT (Employee)
+═══════════════════════════════ */
+async function submitRecord() {
+  const name   = document.getElementById('eng-name').value.trim();
+  const site   = document.getElementById('eng-site').value.trim();
+  const work   = document.getElementById('eng-work').value.trim();
+  const issues = document.getElementById('eng-issues').value.trim();
+  if (!name) { toast('Please enter your name','err'); return; }
+  if (!site) { toast('Please enter site name','err'); return; }
+  if (!work) { toast('Please describe tasks completed','err'); return; }
+  const ih=document.getElementById('in-hour').value, im=document.getElementById('in-min').value, ia=document.getElementById('in-ampm').value;
+  const oh=document.getElementById('out-hour').value, om=document.getElementById('out-min').value, oa=document.getElementById('out-ampm').value;
+  const diff = calcHours();
+  if (diff <= 0) { toast('End time must be after start time','err'); return; }
+  const totalHours = parseFloat((diff/60).toFixed(2));
+  const h = Math.floor(diff/60), m = diff % 60;
+  const totalHoursLabel = `${h}h ${m}m`;
+  const today = new Date().toLocaleDateString('en-CA');
+  const record = { name, site, work, issues, clockIn:timeStr(ih,im,ia), clockOut:timeStr(oh,om,oa), totalHours, totalHoursLabel, date:today, submittedAt:new Date().toISOString() };
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD…';
+  try {
+    if (window._fbReady) {
+      await window._fbAdd(record);
+      resetForm();
+      showSuccess(`${totalHoursLabel} logged at ${site} — ✅ Synced to manager dashboard`, true);
+      toast('✅ Report submitted & synced to manager!','ok');
+    } else {
+      // Offline fallback
+      resetForm();
+      showSuccess('⚠️ No cloud connection. Report could not be sent. Check internet and try again.', false);
+      toast('⚠️ Cloud unavailable. Report not saved.','err');
+    }
+  } catch(e) {
+    toast('❌ Error: ' + e.message,'err');
+    console.error(e);
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
+}
+function resetForm() {
+  ['eng-name','eng-site','eng-work','eng-issues'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('in-hour').value=8; document.getElementById('in-min').value=0; document.getElementById('in-ampm').value='AM';
+  document.getElementById('out-hour').value=5; document.getElementById('out-min').value=0; document.getElementById('out-ampm').value='PM';
+  calcHours();
+}
+function showSuccess(msg, isCloud) {
+  const sb = document.getElementById('success-bar');
+  sb.style.borderColor = isCloud ? '' : '#f59e0b';
+  sb.querySelector('i').style.color = isCloud ? '' : '#f59e0b';
+  document.getElementById('success-detail').textContent = msg;
+  sb.classList.add('show');
+  setTimeout(() => { sb.classList.remove('show'); sb.style.borderColor=''; sb.querySelector('i').style.color=''; }, isCloud ? 6000 : 10000);
+}
+window.submitRecord = submitRecord;
+
+/* ═══════════════════════════════
+   MANAGER AUTH
+═══════════════════════════════ */
+function managerLogin() {
+  const p = document.getElementById('mgr-pass').value;
+  const err = document.getElementById('login-err');
+  if (p === MANAGER_PASS) {
+    err.style.display = 'none';
+    document.getElementById('mgr-pass').value = '';
+    show('dashboard');
+  } else {
+    err.style.display = 'flex';
+    document.getElementById('mgr-pass').value = '';
+    document.getElementById('mgr-pass').focus();
+  }
+}
+function logout() {
+  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  allRecords = [];
+  locallyDeleted.clear();
+  show('home');
+}
+window.managerLogin = managerLogin;
+window.logout = logout;
+
+/* ═══════════════════════════════
+   TAB SWITCH
+═══════════════════════════════ */
+function switchTab(name, btn) {
+  document.querySelectorAll('.dtab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+name).classList.add('active');
+}
+window.switchTab = switchTab;
+
+/* ═══════════════════════════════
+   LOAD RECORDS (live listener)
+═══════════════════════════════ */
+function loadRecords() {
+  const today = new Date().toLocaleDateString('en-CA');
+  document.getElementById('daily-date').value = today;
+  document.getElementById('monthly-month').value = today.slice(0,7);
+  if (!window._fbReady) {
+    document.getElementById('daily-records').innerHTML = '<div class="no-data"><i class="ti ti-wifi-off"></i><p>No cloud connection</p></div>';
+    document.getElementById('monthly-records').innerHTML = '<div class="no-data"><i class="ti ti-wifi-off"></i><p>No cloud connection</p></div>';
+    document.getElementById('all-records').innerHTML = '<div class="no-data"><i class="ti ti-wifi-off"></i><p>No cloud connection</p></div>';
+    return;
+  }
+  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  unsubscribe = window._fbListen(function(docs) {
+    allRecords = docs.filter(function(d){ return !locallyDeleted.has(d._id); });
+    renderDaily(); renderMonthly(); renderAll();
+  }, function(err) {
+    console.error('Firestore error:', err);
+    toast('Cloud sync error: ' + err.message, 'err');
+  });
+}
+window.loadRecords = loadRecords;
+
+/* ═══════════════════════════════
+   DELETE (manager only)
+═══════════════════════════════ */
+function askDelete(docId) {
+  const r = allRecords.find(x => x._id === docId);
+  if (!r) return;
+  pendingDelId   = docId;
+  pendingDelData = r;
+  const dateStr = r.date || r.submittedAt?.slice(0,10) || '–';
+  document.getElementById('del-meta').innerHTML =
+    `<b>Engineer</b>${r.name}<b style="margin-top:5px">Site</b>${r.site}<b style="margin-top:5px">Date · Hours</b>${dateStr} · ${r.totalHoursLabel||r.totalHours+' hrs'}<b style="margin-top:5px">Tasks</b>${(r.work||'').slice(0,120)}${(r.work||'').length>120?'…':''}`;
+  document.getElementById('del-overlay').classList.add('open');
+}
+function closeDelModal() {
+  document.getElementById('del-overlay').classList.remove('open');
+  pendingDelId = null; pendingDelData = null;
+}
+async function confirmDelete() {
+  if (!pendingDelId) { closeDelModal(); return; }
+  const btn = document.getElementById('del-ok');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; DELETING…';
+  const idToDelete = pendingDelId;
+  try {
+    // Mark as locally deleted FIRST so onSnapshot doesn't re-add it
+    locallyDeleted.add(idToDelete);
+    // Remove from local array immediately
+    allRecords = allRecords.filter(r => r._id !== idToDelete);
+    renderDaily(); renderMonthly(); renderAll();
+    closeDelModal();
+    // Then delete from Firestore
+    await window._fbDelete(idToDelete);
+    // Once Firestore confirms, remove from locallyDeleted set
+    locallyDeleted.delete(idToDelete);
+    toast('🗑️ Record permanently deleted from cloud','ok');
+  } catch(e) {
+    // Rollback: remove from locallyDeleted so it reappears
+    locallyDeleted.delete(idToDelete);
+    toast('Error deleting: ' + e.message,'err');
+    console.error(e);
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<i class="ti ti-trash"></i>&nbsp; DELETE PERMANENTLY';
+}
+window.askDelete = askDelete;
+window.closeDelModal = closeDelModal;
+window.confirmDelete = confirmDelete;
+document.getElementById('del-overlay').addEventListener('click', function(e){ if(e.target===this) closeDelModal(); });
+
+/* ═══════════════════════════════
+   RENDER
+═══════════════════════════════ */
+function fmtDate(s) {
+  if (!s) return '–';
+  const [y,mo,d] = s.split('-');
+  return `${+d} ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+mo-1]} ${y}`;
+}
+function sumHrs(recs) { return recs.reduce((a,r) => a+(parseFloat(r.totalHours)||0), 0).toFixed(1); }
+
+function recordHTML(r) {
+  const dateStr = r.date || r.submittedAt?.slice(0,10) || '–';
+  const docId   = r._id || '';
+  return `<div class="rcard">
+    <div class="rcard-top">
+      <div class="rcard-name"><i class="ti ti-clipboard-list"></i>${escHtml(r.name)}</div>
+      <div class="rcard-topright">
+        <div class="rcard-date">${fmtDate(dateStr)}</div>
+        <button class="rcard-del" title="Delete (manager only)" onclick="askDelete('${docId.replace(/'/g,"\\'")}')">
+          <i class="ti ti-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="rcard-site"><i class="ti ti-map-pin"></i>${escHtml(r.site)}</div>
+    <div class="rcard-times">
+      <div class="rtime">START<span>🟢 ${r.clockIn||'–'}</span></div>
+      <div class="rtime">END<span>🔴 ${r.clockOut||'–'}</span></div>
+    </div>
+    <div class="rcard-hrs"><i class="ti ti-clock"></i>${r.totalHoursLabel||r.totalHours+' hrs'}</div>
+    <div class="rcard-work"><b>Tasks Completed</b>${escHtml(r.work||'–')}</div>
+    ${r.issues ? `<div class="rcard-work" style="margin-top:.4rem"><b>Issues / Observations</b>${escHtml(r.issues)}</div>` : ''}
+  </div>`;
+}
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderTo(id, recs) {
+  document.getElementById(id).innerHTML = recs.length
+    ? recs.map(recordHTML).join('')
+    : '<div class="no-data"><i class="ti ti-inbox"></i><p>No records found</p></div>';
+}
+
+function renderDaily() {
+  const date = document.getElementById('daily-date').value;
+  const f = allRecords.filter(r => (r.date||r.submittedAt?.slice(0,10)) === date);
+  filtered.daily = f;
+  document.getElementById('d-count').textContent = f.length;
+  document.getElementById('d-sites').textContent = new Set(f.map(r=>r.site)).size;
+  document.getElementById('d-hrs').textContent   = sumHrs(f);
+  renderTo('daily-records', f);
+}
+function renderMonthly() {
+  const month = document.getElementById('monthly-month').value;
+  const eng   = document.getElementById('monthly-eng').value.toLowerCase();
+  const site  = document.getElementById('monthly-site').value.toLowerCase();
+  const f = allRecords.filter(r => {
+    const d = r.date || r.submittedAt?.slice(0,10) || '';
+    return d.startsWith(month) && r.name.toLowerCase().includes(eng) && r.site.toLowerCase().includes(site);
+  });
+  filtered.monthly = f;
+  document.getElementById('m-count').textContent = f.length;
+  document.getElementById('m-engs').textContent  = new Set(f.map(r=>r.name)).size;
+  document.getElementById('m-hrs').textContent   = sumHrs(f);
+  renderTo('monthly-records', f);
+}
+function renderAll() {
+  const s = document.getElementById('all-search').value.toLowerCase();
+  const f = allRecords.filter(r => r.name.toLowerCase().includes(s) || r.site.toLowerCase().includes(s));
+  filtered.all = f;
+  renderTo('all-records', f);
+}
+window.renderDaily=renderDaily; window.renderMonthly=renderMonthly; window.renderAll=renderAll;
+
+/* ═══════════════════════════════
+   EXPORTS
+═══════════════════════════════ */
+function exportExcel(type) {
+  const rows = filtered[type]||[];
+  if (!rows.length) { toast('No records to export','err'); return; }
+  const wsData = [
+    ['EZone Daily Work Report','','','','','','',''],
+    ['Generated:',new Date().toLocaleString('en-IN'),'','','','','',''],
+    [],
+    ['Engineer Name','Site / Location','Date','Start Time','End Time','Total Hours','Tasks Completed','Issues'],
+    ...rows.map(r=>[r.name,r.site,r.date||r.submittedAt?.slice(0,10),r.clockIn,r.clockOut,r.totalHoursLabel||r.totalHours,r.work,r.issues||'']),
+    [],['','','','','Total Hours →',sumHrs(rows),'','']
+  ];
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+  ws['!cols'] = [{wch:22},{wch:28},{wch:14},{wch:12},{wch:12},{wch:14},{wch:50},{wch:40}];
+  ws['!merges'] = [{s:{r:0,c:0},e:{r:0,c:7}}];
+  XLSX.utils.book_append_sheet(wb, ws, 'Reports');
+  XLSX.writeFile(wb, `EZone_${lbl(type)}.xlsx`);
+  toast('✅ Excel downloaded!','ok');
+}
+function exportPDF(type) {
+  const rows = filtered[type]||[];
+  if (!rows.length) { toast('No records to export','err'); return; }
+  const {jsPDF} = window.jspdf;
+  const doc = new jsPDF({orientation:'landscape',unit:'mm',format:'a4'});
+  doc.setFillColor(8,12,20); doc.rect(0,0,297,210,'F');
+  doc.setFillColor(14,21,35); doc.rect(0,0,297,28,'F');
+  doc.setFontSize(18); doc.setTextColor(249,115,22); doc.setFont('helvetica','bold');
+  doc.text('EZONE DAILY WORK REPORT',148.5,13,{align:'center'});
+  doc.setFontSize(8); doc.setTextColor(122,134,154); doc.setFont('helvetica','normal');
+  doc.text('Generated: '+new Date().toLocaleString('en-IN')+'  |  '+lbl(type),148.5,22,{align:'center'});
+  doc.autoTable({
+    startY:32,
+    head:[['Engineer','Site','Date','Start','End','Hrs','Tasks Completed','Issues']],
+    body:rows.map(r=>[r.name,r.site,r.date||r.submittedAt?.slice(0,10)||'–',r.clockIn||'–',r.clockOut||'–',r.totalHoursLabel||r.totalHours||'–',r.work,r.issues||'–']),
+    foot:[['','','','','TOTAL:',sumHrs(rows)+' hrs','','']],
+    theme:'grid',
+    styles:{font:'helvetica',fontSize:8,cellPadding:3,textColor:[226,232,242],fillColor:[20,28,46],lineColor:[31,45,69],lineWidth:.3},
+    headStyles:{fillColor:[249,115,22],textColor:[255,255,255],fontStyle:'bold',fontSize:9},
+    footStyles:{fillColor:[26,35,56],textColor:[249,115,22],fontStyle:'bold'},
+    alternateRowStyles:{fillColor:[26,35,56]},
+    columnStyles:{6:{cellWidth:55},7:{cellWidth:35}},
+    margin:{left:8,right:8}
+  });
+  doc.save(`EZone_${lbl(type)}.pdf`);
+  toast('✅ PDF downloaded!','ok');
+}
+function exportCSV(type) {
+  const rows = filtered[type]||[];
+  if (!rows.length) { toast('No records to export','err'); return; }
+  const lines = [['Engineer Name','Site','Date','Start Time','End Time','Total Hours','Tasks Completed','Issues'].join(',')];
+  rows.forEach(r => lines.push([q(r.name),q(r.site),q(r.date||''),q(r.clockIn||''),q(r.clockOut||''),q(r.totalHoursLabel||r.totalHours||''),q(r.work||''),q(r.issues||'')].join(',')));
+  const blob = new Blob(['\uFEFF'+lines.join('\n')],{type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`EZone_${lbl(type)}.csv`; a.click();
+  toast('✅ CSV downloaded!','ok');
+}
+function saveToOneDrive(type) { exportExcel(type); setTimeout(()=>toast('📁 Move the .xlsx to your OneDrive folder!','info'),1500); }
+window.exportExcel=exportExcel; window.exportPDF=exportPDF; window.exportCSV=exportCSV; window.saveToOneDrive=saveToOneDrive;
+
+/* ═══════════════════════════════
+   HELPERS
+═══════════════════════════════ */
+function lbl(type) {
+  return {daily:'Daily_'+(document.getElementById('daily-date')?.value||''),monthly:'Monthly_'+(document.getElementById('monthly-month')?.value||''),all:'All_Records'}[type]||type;
+}
+function q(s) { return '"'+(String(s).replace(/"/g,'""'))+'"'; }
+function toast(msg, cls='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = 'toast show'+(cls?' '+cls:'');
+  clearTimeout(t._t); t._t = setTimeout(()=>t.className='toast',4000);
+}
+window.toast = toast;
+
+/* ═══════════════════════════════
+   INIT
+═══════════════════════════════ */
+buildTimeSelectors();
+</script>
+</body>
+</html>
