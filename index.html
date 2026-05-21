@@ -579,43 +579,52 @@ window.calcHours = calcHours;
    SUBMIT (Employee)
 ═══════════════════════════════ */
 async function submitRecord() {
-  const name   = document.getElementById('eng-name').value.trim();
-  const site   = document.getElementById('eng-site').value.trim();
-  const work   = document.getElementById('eng-work').value.trim();
-  const issues = document.getElementById('eng-issues').value.trim();
-  if (!name) { toast('Please enter your name','err'); return; }
-  if (!site) { toast('Please enter site name','err'); return; }
-  if (!work) { toast('Please describe tasks completed','err'); return; }
-  const ih=document.getElementById('in-hour').value, im=document.getElementById('in-min').value, ia=document.getElementById('in-ampm').value;
-  const oh=document.getElementById('out-hour').value, om=document.getElementById('out-min').value, oa=document.getElementById('out-ampm').value;
-  const diff = calcHours();
-  if (diff <= 0) { toast('End time must be after start time','err'); return; }
-  const totalHours = parseFloat((diff/60).toFixed(2));
-  const h = Math.floor(diff/60), m = diff % 60;
-  const totalHoursLabel = `${h}h ${m}m`;
-  const today = new Date().toLocaleDateString('en-CA');
-  const record = { name, site, work, issues, clockIn:timeStr(ih,im,ia), clockOut:timeStr(oh,om,oa), totalHours, totalHoursLabel, date:today, submittedAt:new Date().toISOString() };
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD…';
-  try {
-    if (window._fbReady) {
-      await window._fbAdd(record);
-      resetForm();
-      showSuccess(`${totalHoursLabel} logged at ${site} — ✅ Synced to manager dashboard`, true);
-      toast('✅ Report submitted & synced to manager!','ok');
-    } else {
-      // Offline fallback
-      resetForm();
-      showSuccess('⚠️ No cloud connection. Report could not be sent. Check internet and try again.', false);
-      toast('⚠️ Cloud unavailable. Report not saved.','err');
+    const name = document.getElementById('eng-name').value.trim();
+    const site = document.getElementById('eng-site').value.trim();
+    const work = document.getElementById('eng-work').value.trim();
+    const issues = document.getElementById('eng-issues').value.trim();
+    if (!name) { toast("Please enter your name", 'err'); return; }
+    if (!site) { toast("Please enter site name", 'err'); return; }
+    if (!work) { toast("Please describe tasks completed", 'err'); return; }
+    
+    const ih = document.getElementById('in-hour').value, im = document.getElementById('in-min').value, ia = document.getElementById('in-ampm').value;
+    const oh = document.getElementById('out-hour').value, om = document.getElementById('out-min').value, oa = document.getElementById('out-ampm').value;
+    const diff = calcHours();
+    if (diff <= 0) { toast("End time must be after start time", 'err'); return; }
+    
+    const totalHours = parseFloat((diff / 60).toFixed(2));
+    const h = Math.floor(diff / 60), m = diff % 60;
+    const totalHoursLabel = `${h}h ${m}m`;
+    const today = new Date().toLocaleDateString('en-IN');
+    
+    const record = { name, site, work, issues, clockInTimeStr: `${ih}:${im} ${ia}`, clockOutTimeStr: `${oh}:${om} ${oa}`, totalHours, totalHoursLabel, date: today };
+    const btn = document.getElementById('submit-btn');
+    
+    btn.disabled = true;
+    btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD...';
+    
+    try {
+        if (window.fbReady) {
+            await window._fbAdd(record);
+            resetForm();
+            showSuccess(`${totalHoursLabel} logged at ${site} - Synced to manager dashboard`, true);
+            toast('Report submitted & synced to manager!', 'ok');
+        } else {
+            // Offline Fallback Fix: Re-enable the button if firebase isn't ready
+            resetForm();
+            showSuccess('⚠️ No cloud connection. Report could not be sent. Check internet and try again.', false);
+            toast('Cloud unavailable. Report not saved.', 'err');
+            
+            btn.disabled = false;
+            btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
+        }
+    } catch(e) {
+        toast('❌ Error: ' + e.message, 'err');
+        console.error(e);
+        
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
     }
-  } catch(e) {
-    toast('❌ Error: ' + e.message,'err');
-    console.error(e);
-  }
-  btn.disabled = false;
-  btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
 }
 function resetForm() {
   ['eng-name','eng-site','eng-work','eng-issues'].forEach(id => document.getElementById(id).value = '');
