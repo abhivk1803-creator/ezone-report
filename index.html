@@ -7,8 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+
+<!-- ✅ FIREBASE COMPAT — must be in HEAD so it loads before body scripts -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -30,6 +33,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .orb{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(120px);opacity:.18}
 .orb1{width:600px;height:600px;top:-200px;right:-150px;background:radial-gradient(#f9731630,transparent)}
 .orb2{width:500px;height:500px;bottom:-150px;left:-150px;background:radial-gradient(#3b82f618,transparent)}
+
+/* ── HOME ── */
 #home{align-items:center;justify-content:center;padding:2rem;position:relative}
 .home-inner{position:relative;z-index:1;width:100%;max-width:440px;text-align:center}
 .brand-logo{width:80px;height:80px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 0 60px var(--glow)}
@@ -44,11 +49,15 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .hbtn-mgr{background:var(--card);color:var(--text);border:1px solid var(--border2)}
 .hbtn-mgr:hover{border-color:var(--accent);color:var(--accent)}
 .home-note{margin-top:1rem;font-size:.72rem;color:var(--text3);line-height:1.8}
+
+/* ── TOPBAR ── */
 .topbar{background:var(--surf);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:50}
 .back-btn{background:none;border:1px solid var(--border2);color:var(--text2);width:38px;height:38px;border-radius:var(--rs);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;transition:all .2s}
 .back-btn:hover{border-color:var(--accent);color:var(--accent)}
 .topbar-title{font-family:var(--fh);font-size:1.25rem;font-weight:600;letter-spacing:2.5px}
 .topbar-badge{margin-left:auto;font-size:.65rem;letter-spacing:2px;padding:4px 12px;border-radius:20px;background:var(--glow);color:var(--accent);border:1px solid #f9731430;font-family:var(--fh)}
+
+/* ── ENGINEER FORM ── */
 #engineer{background:var(--bg)}
 .eng-scroll{flex:1;overflow-y:auto;position:relative;z-index:1}
 .eng-body{padding:1.6rem;max-width:720px;width:100%;margin:0 auto}
@@ -77,17 +86,23 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .sub-btn{width:100%;padding:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:var(--r);color:#fff;font-family:var(--fh);font-size:1.15rem;font-weight:700;letter-spacing:3px;cursor:pointer;box-shadow:0 8px 36px var(--glow);transition:all .2s}
 .sub-btn:hover{transform:translateY(-1px);box-shadow:0 14px 56px var(--glow)}
 .sub-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ── STATUS CHIP ── */
 .chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:20px;font-size:.72rem;letter-spacing:1.5px;font-family:var(--fh);margin-bottom:1.4rem;cursor:default}
 .chip-live{background:var(--gbg);border:1px solid #22c55e40;color:var(--green)}
 .chip-warn{background:var(--ybg);border:1px solid #f59e0b50;color:var(--yellow)}
 .chip-conn{background:#0d1a30;border:1px solid #3b82f650;color:#60a5fa}
 .chip-dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── ALERTS ── */
 .success-bar{background:var(--gbg);border:1px solid var(--green);border-radius:var(--r);padding:.9rem 1.2rem;margin-top:1rem;display:none;align-items:center;gap:.8rem;animation:slideUp .4s ease}
 .success-bar.show{display:flex}
 .err-bar{background:var(--rbg);border:1px solid var(--red);border-radius:var(--r);padding:1rem 1.2rem;margin-top:1rem;display:none;flex-direction:column;gap:.5rem}
 .err-bar.show{display:flex}
 @keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ── MANAGER LOGIN ── */
 #manager-login{align-items:center;justify-content:center;padding:2rem;position:relative}
 .login-card{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:2.6rem 2.2rem;width:100%;max-width:400px;box-shadow:0 16px 60px #00000080}
 .login-title{font-family:var(--fh);font-size:2.2rem;font-weight:700;letter-spacing:5px;color:var(--accent);margin-bottom:4px}
@@ -101,6 +116,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .login-err{color:var(--red);font-size:.78rem;margin-bottom:.9rem;display:none;align-items:center;gap:5px}
 .login-btn{width:100%;padding:1rem;background:linear-gradient(135deg,#3b82f6,#6366f1);border:none;border-radius:var(--r);color:#fff;font-family:var(--fh);font-size:1.1rem;font-weight:700;letter-spacing:3px;cursor:pointer;box-shadow:0 8px 36px #3b82f640;transition:all .2s}
 .login-btn:hover{opacity:.9;transform:translateY(-1px)}
+
+/* ── DASHBOARD ── */
 #dashboard{background:var(--bg)}
 .dash-top{background:var(--surf);border-bottom:1px solid var(--border);padding:1rem 1.6rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .dash-brand{display:flex;align-items:center;gap:.7rem}
@@ -134,6 +151,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .ebtn.pd:hover{border-color:var(--red);color:var(--red);background:var(--rbg)}
 .ebtn.cv:hover{border-color:#3b82f6;color:#3b82f6;background:#0d1a2d}
 .records{display:grid;gap:.85rem}
+
+/* ── RECORD CARD ── */
 .rcard{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.3rem;transition:all .2s}
 .rcard:hover{border-color:var(--border2);transform:translateY(-1px)}
 .rcard-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.5rem;gap:.5rem}
@@ -148,6 +167,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .rhrs{display:inline-flex;align-items:center;gap:4px;background:var(--gbg);border:1px solid #22c55e30;color:var(--green);font-family:var(--fh);font-size:.78rem;padding:3px 11px;border-radius:20px;margin-bottom:.55rem}
 .rwork{font-size:.8rem;color:var(--text2);border-top:1px solid var(--border);padding-top:.55rem;margin-top:.3rem;line-height:1.6}
 .rwork b{color:var(--text3);font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+/* DELETE BTN — only visible inside .mgr-mode */
 .rdel{background:var(--rbg);border:1px solid #ef444440;color:var(--red);width:30px;height:30px;border-radius:7px;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all .2s}
 .rdel:hover{border-color:var(--red);background:#3a0e0e}
 .mgr-mode .rdel{display:flex}
@@ -156,6 +176,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .spinner{display:flex;justify-content:center;padding:2.5rem}
 .spinner::after{content:'';width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── DELETE MODAL ── */
 .del-overlay{position:fixed;inset:0;background:#000000b0;z-index:300;display:none;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(8px)}
 .del-overlay.open{display:flex}
 .del-box{background:var(--surf);border:1px solid var(--red);border-radius:16px;width:100%;max-width:420px;box-shadow:0 16px 60px #00000080;animation:slideUp .25s ease}
@@ -169,13 +191,29 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 .btn-del{flex:1;padding:.88rem;background:linear-gradient(135deg,var(--red),#dc2626);border:none;border-radius:var(--r);color:#fff;font-family:var(--fh);font-size:1rem;letter-spacing:2px;cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .2s}
 .btn-del:disabled{opacity:.45}
 .btn-cancel{padding:.88rem 1.2rem;background:var(--card);border:1px solid var(--border2);border-radius:var(--r);color:var(--text2);font-family:var(--fh);font-size:.9rem;cursor:pointer}
+
+/* ── TOAST ── */
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--card2);color:var(--text);padding:.75rem 1.5rem;border-radius:50px;font-size:.83rem;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:9999;white-space:nowrap;border:1px solid var(--border2)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.ok{border-color:var(--green);color:var(--green)}
 .toast.err{border-color:var(--red);color:var(--red)}
-@media(min-width:768px){.eng-body{padding:2rem 2.4rem}.records{grid-template-columns:1fr 1fr}.dash-body{padding:2rem 2.4rem}}
+
+/* ── RESPONSIVE ── */
+@media(min-width:768px){
+  .eng-body{padding:2rem 2.4rem}
+  .records{grid-template-columns:1fr 1fr}
+  .dash-body{padding:2rem 2.4rem}
+}
 @media(min-width:1100px){.records{grid-template-columns:1fr 1fr 1fr}}
-@media(max-width:480px){.frow{grid-template-columns:1fr}.brand-name{font-size:3rem;letter-spacing:5px}.del-btns{flex-direction:column}.db-name{display:none}.ibtn span{display:none}.stats-row{grid-template-columns:1fr 1fr}.scard:last-child{grid-column:span 2}}
+@media(max-width:480px){
+  .frow{grid-template-columns:1fr}
+  .brand-name{font-size:3rem;letter-spacing:5px}
+  .del-btns{flex-direction:column}
+  .db-name{display:none}
+  .ibtn span{display:none}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .scard:last-child{grid-column:span 2}
+}
 </style>
 </head>
 <body>
@@ -183,6 +221,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 
+<!-- ══ HOME ══ -->
 <div id="home" class="screen active">
   <div class="home-inner">
     <div class="brand-logo"><i class="ti ti-bolt"></i></div>
@@ -195,6 +234,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
   </div>
 </div>
 
+<!-- ══ ENGINEER FORM ══ -->
 <div id="engineer" class="screen">
   <div class="topbar">
     <button class="back-btn" onclick="show('home')"><i class="ti ti-arrow-left"></i></button>
@@ -202,22 +242,26 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
     <span class="topbar-badge">ENGINEER</span>
   </div>
   <div class="eng-scroll"><div class="eng-body">
+
     <div class="chip chip-conn" id="cloud-chip"><span class="chip-dot"></span><span id="cloud-txt">Connecting to cloud…</span></div>
+
     <div class="slabel">Personal Info</div>
     <div class="frow">
       <div class="fg"><label>Engineer Name</label><input type="text" id="eng-name" placeholder="Your full name" autocomplete="name"/></div>
       <div class="fg"><label>Site Name / Location</label><input type="text" id="eng-site" placeholder="e.g. Site A – Hyderabad"/></div>
     </div>
+
     <div class="slabel" style="margin-top:1.4rem">Work Details</div>
     <div class="fg"><label>Tasks Completed Today</label><textarea id="eng-work" placeholder="Describe all tasks completed at this site today…"></textarea></div>
     <div class="fg"><label>Issues / Observations <span style="color:var(--text3);text-transform:none;letter-spacing:0;font-size:.75rem">(optional)</span></label><textarea id="eng-issues" placeholder="Any problems faced, pending work or observations…" style="min-height:70px"></textarea></div>
+
     <div class="slabel" style="margin-top:1.4rem">Work Hours</div>
     <div class="tgrid">
-      <div class="tcard tin">
+      <div class="tcard tin" id="tc-in">
         <div class="thead"><span class="tdot din"></span>START TIME</div>
         <div class="trow"><select id="in-h" onchange="calcH()"></select><select id="in-m" onchange="calcH()"></select><select id="in-ap" onchange="calcH()"><option>AM</option><option>PM</option></select></div>
       </div>
-      <div class="tcard tout">
+      <div class="tcard tout" id="tc-out">
         <div class="thead"><span class="tdot dout"></span>END TIME</div>
         <div class="trow"><select id="out-h" onchange="calcH()"></select><select id="out-m" onchange="calcH()"></select><select id="out-ap" onchange="calcH()"><option>AM</option><option selected>PM</option></select></div>
       </div>
@@ -226,7 +270,9 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
       <div class="hrs-lbl"><i class="ti ti-clock"></i>TOTAL HOURS WORKED</div>
       <div class="hrs-val" id="total-h">– hrs</div>
     </div>
+
     <button class="sub-btn" id="sub-btn" onclick="submitReport()"><i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT</button>
+
     <div class="success-bar" id="ok-bar">
       <i class="ti ti-circle-check" style="font-size:24px;color:var(--green)"></i>
       <div><p style="font-size:.9rem;color:var(--green);font-weight:500">Report Submitted!</p><span id="ok-detail" style="font-size:.75rem;color:#4ade8080"></span></div>
@@ -239,6 +285,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
   </div></div>
 </div>
 
+<!-- ══ MANAGER LOGIN ══ -->
 <div id="manager-login" class="screen" style="align-items:center;justify-content:center;padding:2rem">
   <div class="login-card">
     <div class="login-title">MANAGER</div>
@@ -258,6 +305,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
   </div>
 </div>
 
+<!-- ══ DASHBOARD ══ -->
 <div id="dashboard" class="screen">
   <div class="dash-top">
     <div class="dash-brand">
@@ -276,6 +324,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
     <button class="dtab" onclick="switchTab('all',this)"><i class="ti ti-database"></i> ALL RECORDS</button>
   </div>
   <div class="dash-body mgr-mode">
+
+    <!-- DAILY -->
     <div class="tab-panel active" id="panel-daily">
       <div class="stats-row">
         <div class="scard"><div class="snum" id="d-cnt">0</div><div class="slbl2">Reports Today</div></div>
@@ -290,6 +340,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
       </div>
       <div class="records" id="daily-recs"><div class="spinner"></div></div>
     </div>
+
+    <!-- MONTHLY -->
     <div class="tab-panel" id="panel-monthly">
       <div class="stats-row">
         <div class="scard"><div class="snum" id="m-cnt">0</div><div class="slbl2">Records</div></div>
@@ -308,6 +360,8 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
       </div>
       <div class="records" id="monthly-recs"><div class="spinner"></div></div>
     </div>
+
+    <!-- ALL -->
     <div class="tab-panel" id="panel-all">
       <div class="filter-bar"><input type="text" id="a-search" placeholder="Search name or site…" oninput="renderAll()"/></div>
       <div class="exp-bar">
@@ -320,6 +374,7 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
   </div>
 </div>
 
+<!-- ══ DELETE MODAL ══ -->
 <div class="del-overlay" id="del-overlay">
   <div class="del-box">
     <div class="del-head"><i class="ti ti-alert-triangle" style="color:var(--red);font-size:22px"></i><h3>CONFIRM DELETE</h3></div>
@@ -336,11 +391,15 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);min-height:100
 
 <div class="toast" id="toast"></div>
 
+<!-- SheetJS + jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
 <script>
+// ══════════════════════════════════════════════
+// FIREBASE INIT — runs after page fully loaded
+// ══════════════════════════════════════════════
 var DB = null;
 var FB_READY = false;
 var unsub = null;
@@ -349,18 +408,6 @@ var filtered = {daily:[],monthly:[],all:[]};
 var delId = null;
 var locallyDeleted = {};
 
-// ── TIMEOUT HELPER ──────────────────────────
-// Wraps any promise with a timeout so it never hangs forever
-function withTimeout(promise, ms, label) {
-  var timeout = new Promise(function(_, reject) {
-    setTimeout(function() {
-      reject(new Error((label||'Request') + ' timed out after ' + (ms/1000) + 's. Check your internet connection and Firebase rules.'));
-    }, ms);
-  });
-  return Promise.race([promise, timeout]);
-}
-
-// ── FIREBASE INIT ────────────────────────────
 window.addEventListener('load', function() {
   try {
     var cfg = {
@@ -371,23 +418,22 @@ window.addEventListener('load', function() {
       messagingSenderId: "648148102614",
       appId:             "1:648148102614:web:0ebef0e1d3c452c127c877"
     };
-    if (!firebase.apps.length) firebase.initializeApp(cfg);
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(cfg);
+    }
+
     DB = firebase.firestore();
 
-    // Enable offline persistence so writes survive brief disconnects
-    DB.enablePersistence({synchronizeTabs: true}).catch(function(e) {
-      console.warn('Persistence not available:', e.code);
-    });
-
-    // Ping with a 8s timeout — won't hang forever
-    withTimeout(DB.collection('dailyReports').limit(1).get(), 8000, 'Connection check')
+    // Test connection with a simple ping
+    DB.collection('dailyReports').limit(1).get()
       .then(function() {
         FB_READY = true;
         setChip('live');
+        console.log('Firebase connected OK');
       })
       .catch(function(e) {
-        // Still mark ready — write might work even if read timed out
-        FB_READY = true;
+        FB_READY = true; // still try — might be permission issue on read but write could work
         setChip('live');
         console.warn('Ping warning:', e.message);
       });
@@ -401,8 +447,8 @@ window.addEventListener('load', function() {
 
 function setChip(state) {
   var chip = document.getElementById('cloud-chip');
-  var txt  = document.getElementById('cloud-txt');
-  var badge= document.getElementById('sync-badge');
+  var txt = document.getElementById('cloud-txt');
+  var badge = document.getElementById('sync-badge');
   if (!chip) return;
   if (state === 'live') {
     chip.className = 'chip chip-live';
@@ -415,7 +461,9 @@ function setChip(state) {
   }
 }
 
-// ── NAVIGATION ───────────────────────────────
+// ══════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════
 function show(id) {
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
@@ -423,7 +471,9 @@ function show(id) {
 }
 window.show = show;
 
-// ── TIME SELECTORS ───────────────────────────
+// ══════════════════════════════════════════════
+// TIME SELECTORS
+// ══════════════════════════════════════════════
 function buildTime() {
   ['in-h','out-h'].forEach(function(id) {
     var s = document.getElementById(id);
@@ -441,10 +491,10 @@ function buildTime() {
   document.getElementById('out-ap').value='PM';
   calcH();
 }
-function to24(h,m,ap){ var hh=+h; if(ap==='AM'&&hh===12)hh=0; if(ap==='PM'&&hh!==12)hh+=12; return hh*60+(+m); }
-function calcH(){
-  var i=to24(document.getElementById('in-h').value,document.getElementById('in-m').value,document.getElementById('in-ap').value);
-  var o=to24(document.getElementById('out-h').value,document.getElementById('out-m').value,document.getElementById('out-ap').value);
+function to24(h,m,ap) { var hh=+h; if(ap==='AM'&&hh===12)hh=0; if(ap==='PM'&&hh!==12)hh+=12; return hh*60+(+m); }
+function calcH() {
+  var i=to24(document.getElementById('in-h').value, document.getElementById('in-m').value, document.getElementById('in-ap').value);
+  var o=to24(document.getElementById('out-h').value, document.getElementById('out-m').value, document.getElementById('out-ap').value);
   var d=o-i; if(d<0)d+=1440;
   var h=Math.floor(d/60), m=d%60;
   document.getElementById('total-h').textContent = d<=0?'– hrs':(h+'h '+m+'m');
@@ -454,72 +504,54 @@ function tStr(h,m,ap){ return String(h).padStart(2,'0')+':'+String(m).padStart(2
 window.calcH=calcH;
 buildTime();
 
-// ── SUBMIT REPORT  (KEY FIX: 12s timeout) ───
-function resetBtn() {
-  var btn = document.getElementById('sub-btn');
-  btn.disabled = false;
-  btn.innerHTML = '<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
-}
-
+// ══════════════════════════════════════════════
+// SUBMIT REPORT
+// ══════════════════════════════════════════════
 function submitReport() {
-  var name   = document.getElementById('eng-name').value.trim();
-  var site   = document.getElementById('eng-site').value.trim();
-  var work   = document.getElementById('eng-work').value.trim();
-  var issues = document.getElementById('eng-issues').value.trim();
-
-  document.getElementById('err-bar').className = 'err-bar';
-  document.getElementById('ok-bar').className  = 'success-bar';
-
-  if (!name)  { toast('Please enter your name','err'); return; }
-  if (!site)  { toast('Please enter site name','err'); return; }
-  if (!work)  { toast('Please describe tasks completed','err'); return; }
-
+  var name  = document.getElementById('eng-name').value.trim();
+  var site  = document.getElementById('eng-site').value.trim();
+  var work  = document.getElementById('eng-work').value.trim();
+  var issues= document.getElementById('eng-issues').value.trim();
+  document.getElementById('err-bar').className='err-bar';
+  document.getElementById('ok-bar').className='success-bar';
+  if (!name) { toast('Please enter your name','err'); return; }
+  if (!site) { toast('Please enter site name','err'); return; }
+  if (!work) { toast('Please describe tasks completed','err'); return; }
   var diff = calcH();
-  if (diff <= 0) { toast('End time must be after start time','err'); return; }
+  if (diff<=0) { toast('End time must be after start time','err'); return; }
+  var ih=document.getElementById('in-h').value, im=document.getElementById('in-m').value, ia=document.getElementById('in-ap').value;
+  var oh=document.getElementById('out-h').value, om=document.getElementById('out-m').value, oa=document.getElementById('out-ap').value;
+  var th=parseFloat((diff/60).toFixed(2));
+  var h=Math.floor(diff/60), m=diff%60;
+  var thl=h+'h '+m+'m';
+  var today=new Date().toLocaleDateString('en-CA');
+  var rec={name:name,site:site,work:work,issues:issues,clockIn:tStr(ih,im,ia),clockOut:tStr(oh,om,oa),totalHours:th,totalHoursLabel:thl,date:today,submittedAt:new Date().toISOString()};
+  var btn=document.getElementById('sub-btn');
+  btn.disabled=true;
+  btn.innerHTML='<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD…';
 
-  var ih=document.getElementById('in-h').value,  im=document.getElementById('in-m').value,  ia=document.getElementById('in-ap').value;
-  var oh=document.getElementById('out-h').value,  om=document.getElementById('out-m').value,  oa=document.getElementById('out-ap').value;
-  var th  = parseFloat((diff/60).toFixed(2));
-  var thl = Math.floor(diff/60)+'h '+(diff%60)+'m';
-  var today = new Date().toLocaleDateString('en-CA');
-
-  var rec = {
-    name: name, site: site, work: work, issues: issues,
-    clockIn: tStr(ih,im,ia), clockOut: tStr(oh,om,oa),
-    totalHours: th, totalHoursLabel: thl,
-    date: today, submittedAt: new Date().toISOString()
-  };
-
-  var btn = document.getElementById('sub-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="ti ti-loader ti-spin"></i>&nbsp; SENDING TO CLOUD…';
-
-  if (!DB) {
-    showErr('Firebase not initialised. Please reload the page.');
-    resetBtn(); return;
+  if (!FB_READY || !DB) {
+    showErr('Cloud not ready. Please reload the page and try again.');
+    btn.disabled=false;
+    btn.innerHTML='<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
+    return;
   }
 
-  // ✅ KEY FIX: 12-second timeout — button ALWAYS re-enables
-  withTimeout(DB.collection('dailyReports').add(rec), 12000, 'Submit')
+  DB.collection('dailyReports').add(rec)
     .then(function() {
       resetForm();
-      document.getElementById('ok-detail').textContent = thl + ' logged at ' + site + ' — synced to manager ✅';
-      document.getElementById('ok-bar').className = 'success-bar show';
-      setTimeout(function(){ document.getElementById('ok-bar').className = 'success-bar'; }, 6000);
-      toast('✅ Report submitted!', 'ok');
-      resetBtn();
+      document.getElementById('ok-detail').textContent = thl+' logged at '+site+' — synced to manager ✅';
+      document.getElementById('ok-bar').className='success-bar show';
+      setTimeout(function(){ document.getElementById('ok-bar').className='success-bar'; },6000);
+      toast('✅ Report submitted!','ok');
+      btn.disabled=false;
+      btn.innerHTML='<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
     })
     .catch(function(e) {
-      console.error('Submit error:', e);
-      var msg = e.message || 'Unknown error';
-      if (msg.includes('timed out')) {
-        showErr('⏱ Request timed out.\n\n• Check your internet connection.\n• If connected, go to Firebase Console → Firestore → Rules and make sure they are not expired (allow read, write: if true;) then click Publish.');
-      } else if (msg.includes('permission') || msg.includes('PERMISSION_DENIED')) {
-        showErr('🔒 Permission denied.\n\nFix: Firebase Console → Firestore → Rules → set:\n  allow read, write: if true;\nthen click Publish.');
-      } else {
-        showErr('Error: ' + msg);
-      }
-      resetBtn();
+      console.error('Firestore write error:', e);
+      showErr('Error: '+e.message+'\n\nFix: Go to console.firebase.google.com → Firestore → Rules → change expiry date → Publish');
+      btn.disabled=false;
+      btn.innerHTML='<i class="ti ti-send"></i>&nbsp; SUBMIT DAILY REPORT';
     });
 }
 
@@ -530,28 +562,32 @@ function resetForm() {
   calcH();
 }
 function showErr(msg) {
-  document.getElementById('err-msg').textContent = msg;
-  document.getElementById('err-bar').className = 'err-bar show';
+  document.getElementById('err-msg').textContent=msg;
+  document.getElementById('err-bar').className='err-bar show';
 }
-window.submitReport = submitReport;
+window.submitReport=submitReport;
 
-// ── AUTH ─────────────────────────────────────
+// ══════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════
 var PASS = 'Ezone$123';
 function toggleEye() {
   var inp=document.getElementById('mgr-pass'), ico=document.getElementById('eye-i');
-  inp.type = inp.type==='password' ? 'text' : 'password';
-  ico.className = inp.type==='password' ? 'ti ti-eye' : 'ti ti-eye-off';
+  inp.type=inp.type==='password'?'text':'password';
+  ico.className=inp.type==='password'?'ti ti-eye':'ti ti-eye-off';
 }
 function doLogin() {
-  var p   = document.getElementById('mgr-pass').value;
-  var err = document.getElementById('login-err');
-  if (p === PASS) { err.style.display='none'; document.getElementById('mgr-pass').value=''; show('dashboard'); }
+  var p=document.getElementById('mgr-pass').value;
+  var err=document.getElementById('login-err');
+  if (p===PASS) { err.style.display='none'; document.getElementById('mgr-pass').value=''; show('dashboard'); }
   else { err.style.display='flex'; document.getElementById('mgr-pass').value=''; document.getElementById('mgr-pass').focus(); }
 }
 function doLogout() { if(unsub){unsub();unsub=null;} allRecs=[]; locallyDeleted={}; show('home'); }
 window.toggleEye=toggleEye; window.doLogin=doLogin; window.doLogout=doLogout;
 
-// ── DASHBOARD ────────────────────────────────
+// ══════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════
 function switchTab(name,btn) {
   document.querySelectorAll('.dtab').forEach(function(b){b.classList.remove('active');});
   document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
@@ -561,10 +597,10 @@ function switchTab(name,btn) {
 window.switchTab=switchTab;
 
 function loadDash() {
-  var today = new Date().toLocaleDateString('en-CA');
-  document.getElementById('d-date').value  = today;
-  document.getElementById('m-month').value = today.slice(0,7);
-  if (!DB) {
+  var today=new Date().toLocaleDateString('en-CA');
+  document.getElementById('d-date').value=today;
+  document.getElementById('m-month').value=today.slice(0,7);
+  if (!FB_READY || !DB) {
     ['daily-recs','monthly-recs','all-recs'].forEach(function(id){
       document.getElementById(id).innerHTML='<div class="no-data"><i class="ti ti-wifi-off"></i><p>No cloud connection</p></div>';
     });
@@ -584,24 +620,27 @@ function loadDash() {
 }
 window.loadDash=loadDash;
 
-// ── DELETE ────────────────────────────────────
+// ══════════════════════════════════════════════
+// DELETE
+// ══════════════════════════════════════════════
 function askDel(id) {
-  var r = allRecs.find(function(x){return x._id===id;});
+  var r=allRecs.find(function(x){return x._id===id;});
   if (!r) return;
-  delId = id;
-  document.getElementById('del-meta').innerHTML =
+  delId=id;
+  var d=r.date||'–';
+  document.getElementById('del-meta').innerHTML=
     '<b>Engineer</b>'+esc(r.name)+
     '<b style="margin-top:5px">Site</b>'+esc(r.site)+
-    '<b style="margin-top:5px">Date</b>'+(r.date||'–')+' · '+(r.totalHoursLabel||r.totalHours+' hrs')+
-    '<b style="margin-top:5px">Tasks</b>'+(r.work||'').slice(0,100)+((r.work&&r.work.length>100)?'…':'');
+    '<b style="margin-top:5px">Date</b>'+d+' · '+(r.totalHoursLabel||r.totalHours+' hrs')+
+    '<b style="margin-top:5px">Tasks</b>'+(r.work||'').slice(0,100)+(r.work&&r.work.length>100?'…':'');
   document.getElementById('del-overlay').classList.add('open');
 }
 function closeDel() { document.getElementById('del-overlay').classList.remove('open'); delId=null; }
 function doDelete() {
   if (!delId) { closeDel(); return; }
-  var btn = document.getElementById('del-ok');
+  var btn=document.getElementById('del-ok');
   btn.disabled=true; btn.innerHTML='<i class="ti ti-loader ti-spin"></i> Deleting…';
-  var id = delId;
+  var id=delId;
   locallyDeleted[id]=true;
   allRecs=allRecs.filter(function(r){return r._id!==id;});
   renderDaily(); renderMonthly(); renderAll();
@@ -614,19 +653,22 @@ function doDelete() {
 window.askDel=askDel; window.closeDel=closeDel; window.doDelete=doDelete;
 document.getElementById('del-overlay').addEventListener('click',function(e){if(e.target===this)closeDel();});
 
-// ── RENDER ────────────────────────────────────
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
 var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function fmtD(s){ if(!s)return'–'; var p=s.split('-'); return(+p[2])+' '+MONTHS[+p[1]-1]+' '+p[0]; }
 function sumH(recs){ return recs.reduce(function(a,r){return a+(parseFloat(r.totalHours)||0);},0).toFixed(1); }
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function cardHTML(r) {
-  var id = r._id||'';
+  var d=r.date||'–';
+  var id=r._id||'';
   return '<div class="rcard">'+
     '<div class="rcard-top">'+
       '<div class="rname"><i class="ti ti-clipboard-list"></i>'+esc(r.name)+'</div>'+
       '<div class="rtr">'+
-        '<div class="rdate">'+fmtD(r.date||'')+'</div>'+
+        '<div class="rdate">'+fmtD(d)+'</div>'+
         '<button class="rdel" title="Delete" onclick="askDel(\''+id.replace(/'/g,"\\'")+'\')" ><i class="ti ti-trash"></i></button>'+
       '</div>'+
     '</div>'+
@@ -641,50 +683,57 @@ function cardHTML(r) {
   '</div>';
 }
 function renderTo(id,recs){
-  document.getElementById(id).innerHTML = recs.length
-    ? recs.map(cardHTML).join('')
-    : '<div class="no-data"><i class="ti ti-inbox"></i><p>No records found</p></div>';
+  document.getElementById(id).innerHTML=recs.length
+    ?recs.map(cardHTML).join('')
+    :'<div class="no-data"><i class="ti ti-inbox"></i><p>No records found</p></div>';
 }
 function renderDaily(){
-  var date = document.getElementById('d-date').value;
-  var f = allRecs.filter(function(r){return (r.date||'')===date;});
+  var date=document.getElementById('d-date').value;
+  var f=allRecs.filter(function(r){return (r.date||'')===date;});
   filtered.daily=f;
-  document.getElementById('d-cnt').textContent   = f.length;
-  document.getElementById('d-sites').textContent = new Set(f.map(function(r){return r.site;})).size;
-  document.getElementById('d-hrs').textContent   = sumH(f);
+  document.getElementById('d-cnt').textContent=f.length;
+  document.getElementById('d-sites').textContent=new Set(f.map(function(r){return r.site;})).size;
+  document.getElementById('d-hrs').textContent=sumH(f);
   renderTo('daily-recs',f);
 }
 function renderMonthly(){
-  var mo = document.getElementById('m-month').value;
-  var en = document.getElementById('m-eng').value.toLowerCase();
-  var si = document.getElementById('m-site').value.toLowerCase();
-  var f  = allRecs.filter(function(r){
-    return (r.date||'').startsWith(mo) && r.name.toLowerCase().includes(en) && r.site.toLowerCase().includes(si);
+  var mo=document.getElementById('m-month').value;
+  var en=document.getElementById('m-eng').value.toLowerCase();
+  var si=document.getElementById('m-site').value.toLowerCase();
+  var f=allRecs.filter(function(r){
+    return (r.date||'').startsWith(mo)&&r.name.toLowerCase().includes(en)&&r.site.toLowerCase().includes(si);
   });
   filtered.monthly=f;
-  document.getElementById('m-cnt').textContent  = f.length;
-  document.getElementById('m-engs').textContent = new Set(f.map(function(r){return r.name;})).size;
-  document.getElementById('m-hrs').textContent  = sumH(f);
+  document.getElementById('m-cnt').textContent=f.length;
+  document.getElementById('m-engs').textContent=new Set(f.map(function(r){return r.name;})).size;
+  document.getElementById('m-hrs').textContent=sumH(f);
   renderTo('monthly-recs',f);
 }
 function renderAll(){
-  var s = document.getElementById('a-search').value.toLowerCase();
-  var f = allRecs.filter(function(r){return r.name.toLowerCase().includes(s)||r.site.toLowerCase().includes(s);});
+  var s=document.getElementById('a-search').value.toLowerCase();
+  var f=allRecs.filter(function(r){return r.name.toLowerCase().includes(s)||r.site.toLowerCase().includes(s);});
   filtered.all=f;
   renderTo('all-recs',f);
 }
 window.renderDaily=renderDaily; window.renderMonthly=renderMonthly; window.renderAll=renderAll;
 
-// ── EXPORTS ───────────────────────────────────
+// ══════════════════════════════════════════════
+// EXPORTS
+// ══════════════════════════════════════════════
 function getLbl(type){
   return {daily:'Daily_'+(document.getElementById('d-date')?document.getElementById('d-date').value:''),monthly:'Monthly_'+(document.getElementById('m-month')?document.getElementById('m-month').value:''),all:'All_Records'}[type]||type;
 }
 function qc(s){ return '"'+String(s||'').replace(/"/g,'""')+'"'; }
+
 function xExcel(type){
   var rows=filtered[type]||[];
   if(!rows.length){toast('No records to export','err');return;}
-  var data=[['EZone Daily Work Report','','','','','','',''],['Generated:',new Date().toLocaleString('en-IN'),'','','','','',''],
-    [],['Engineer Name','Site','Date','Start','End','Hours','Tasks Completed','Issues']];
+  var data=[
+    ['EZone Daily Work Report','','','','','','',''],
+    ['Generated:',new Date().toLocaleString('en-IN'),'','','','','',''],
+    [],
+    ['Engineer Name','Site','Date','Start','End','Hours','Tasks Completed','Issues'],
+  ];
   rows.forEach(function(r){data.push([r.name,r.site,r.date,r.clockIn,r.clockOut,r.totalHoursLabel||r.totalHours,r.work,r.issues||'']);});
   data.push([],['','','','','Total:',sumH(rows),'','']);
   var wb=XLSX.utils.book_new();
@@ -704,13 +753,19 @@ function xPDF(type){
   d.text('EZONE DAILY WORK REPORT',148.5,13,{align:'center'});
   d.setFontSize(8); d.setTextColor(122,134,154); d.setFont('helvetica','normal');
   d.text('Generated: '+new Date().toLocaleString('en-IN'),148.5,22,{align:'center'});
-  d.autoTable({startY:32,head:[['Engineer','Site','Date','Start','End','Hrs','Tasks','Issues']],
+  d.autoTable({
+    startY:32,
+    head:[['Engineer','Site','Date','Start','End','Hrs','Tasks','Issues']],
     body:rows.map(function(r){return[r.name,r.site,r.date||'–',r.clockIn||'–',r.clockOut||'–',r.totalHoursLabel||r.totalHours,r.work,r.issues||'–'];}),
     foot:[['','','','','Total:',sumH(rows)+' hrs','','']],
-    theme:'grid',styles:{fontSize:8,cellPadding:3,textColor:[226,232,242],fillColor:[20,28,46],lineColor:[31,45,69],lineWidth:.3},
+    theme:'grid',
+    styles:{fontSize:8,cellPadding:3,textColor:[226,232,242],fillColor:[20,28,46],lineColor:[31,45,69],lineWidth:.3},
     headStyles:{fillColor:[249,115,22],textColor:[255,255,255],fontStyle:'bold'},
     footStyles:{fillColor:[26,35,56],textColor:[249,115,22],fontStyle:'bold'},
-    alternateRowStyles:{fillColor:[26,35,56]},columnStyles:{6:{cellWidth:55},7:{cellWidth:35}},margin:{left:8,right:8}});
+    alternateRowStyles:{fillColor:[26,35,56]},
+    columnStyles:{6:{cellWidth:55},7:{cellWidth:35}},
+    margin:{left:8,right:8}
+  });
   d.save('EZone_'+getLbl(type)+'.pdf');
   toast('✅ PDF downloaded!','ok');
 }
@@ -725,8 +780,10 @@ function xCSV(type){
 }
 window.xExcel=xExcel; window.xPDF=xPDF; window.xCSV=xCSV;
 
-// ── TOAST ─────────────────────────────────────
-function toast(msg,cls){
+// ══════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════
+function toast(msg,cls) {
   var t=document.getElementById('toast');
   t.textContent=msg; t.className='toast show'+(cls?' '+cls:'');
   clearTimeout(t._t); t._t=setTimeout(function(){t.className='toast';},4000);
